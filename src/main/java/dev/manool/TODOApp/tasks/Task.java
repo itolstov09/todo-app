@@ -1,5 +1,7 @@
 package dev.manool.TODOApp.tasks;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
@@ -11,7 +13,7 @@ import java.util.Set;
 //@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 
 @Entity
-@Table(name = "tasks")
+@Table()
 public class Task {
     @Id
     @GeneratedValue
@@ -21,12 +23,14 @@ public class Task {
     @Column(nullable = false)
     private String text;
 
-    // TODO валидация по тексту статуса и приоритета
-//    @Column(columnDefinition = "TEXT DEFAULT Not Started")
+    @Column(columnDefinition = "TEXT DEFAULT 'NOT_STARTED'")
+    @Enumerated(EnumType.STRING)
     Status status;
-//    @Column(columnDefinition = "TEXT DEFAULT Normal")
+    @Column(columnDefinition = "TEXT DEFAULT 'SOMEDAY'")
+    @Enumerated(EnumType.STRING)
     Priority priority;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate deadline;
 
     // сменил FetchType с LAZY на EAGER. Потому как выдавало ошибку. Да костыль. Поэтому тут этот коммент

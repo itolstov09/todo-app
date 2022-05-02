@@ -22,7 +22,7 @@ public class SubtaskControllerAdvice {
 
     @ResponseBody()
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(TaskNotFoundException.class)
+    @ExceptionHandler(SubtaskNotFoundException.class)
     String subtaskNotFoundExceptionHandler(SubtaskNotFoundException exception) {
         return exception.getMessage();
     }

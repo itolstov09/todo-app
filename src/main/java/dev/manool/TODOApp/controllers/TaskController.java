@@ -1,16 +1,11 @@
 package dev.manool.TODOApp.controllers;
 
-import dev.manool.TODOApp.services.SubtaskService;
 import dev.manool.TODOApp.services.TaskService;
-import dev.manool.TODOApp.tasks.Subtask;
 import dev.manool.TODOApp.tasks.Task;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
@@ -22,9 +17,28 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @GetMapping()
+    public List<Task> findAll() {
+        return taskService.findAll();
+    }
+
     @GetMapping("/{id}")
     public Task findById(@PathVariable Long id) {
         return taskService.findTaskById(id);
     }
+
+    @PostMapping()
+    public Task saveTask(
+//            @RequestBody
+            Task newTask) {
+        return taskService.saveTask(newTask);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteById(@PathVariable Long id) {
+        return ResponseEntity.ok(taskService.deleteById(id));
+    }
+
+
 
 }
