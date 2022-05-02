@@ -1,10 +1,5 @@
 package dev.manool.TODOApp.tasks;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
@@ -37,7 +32,7 @@ public class Task {
     // сменил FetchType с LAZY на EAGER. Потому как выдавало ошибку. Да костыль. Поэтому тут этот коммент
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    Set<SubTask> subTasks;
+    Set<Subtask> subtasks;
 
     public Task() {
     }
@@ -97,12 +92,12 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public Set<SubTask> getSubTasks() {
-        return subTasks;
+    public Set<Subtask> getSubTasks() {
+        return subtasks;
     }
 
-    public void setSubTasks(Set<SubTask> subTasks) {
-        this.subTasks = subTasks;
+    public void setSubTasks(Set<Subtask> subtasks) {
+        this.subtasks = subtasks;
     }
 
     @Override
@@ -113,7 +108,7 @@ public class Task {
                 ", status=" + status +
                 ", priority=" + priority +
                 ", deadline=" + deadline +
-                ", subTasks=" + subTasks +
+                ", subTasks=" + subtasks +
                 '}';
     }
 }

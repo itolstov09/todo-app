@@ -1,30 +1,30 @@
 package dev.manool.TODOApp.controllers;
 
-import dev.manool.TODOApp.repositories.TaskRepository;
+import dev.manool.TODOApp.services.SubtaskService;
+import dev.manool.TODOApp.services.TaskService;
+import dev.manool.TODOApp.tasks.Subtask;
 import dev.manool.TODOApp.tasks.Task;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
 
-    private final TaskRepository taskRepository;
+    private final TaskService taskService;
 
-    public TaskController(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GetMapping("/{id}")
-    String findById(@PathVariable Long id) {
-        Optional<Task> task = taskRepository.findById(id);
-        //TODO убрать get
-        return task.get().toString();
+    public Task findById(@PathVariable Long id) {
+        return taskService.findTaskById(id);
     }
 
 }

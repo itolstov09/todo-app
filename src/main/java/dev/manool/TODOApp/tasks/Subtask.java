@@ -1,13 +1,13 @@
 package dev.manool.TODOApp.tasks;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 //TODO Перевести на lombok
 @Entity
 @Table(name = "sub_tasks")
-public class SubTask {
+public class Subtask {
     @Id
     @GeneratedValue
     long id;
@@ -20,13 +20,14 @@ public class SubTask {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "task_id", nullable = false)
+    @JsonIgnore
     Task task;
 
 
-    public SubTask() {
+    public Subtask() {
     }
 
-    public SubTask(String text, boolean isDone, Task task) {
+    public Subtask(String text, boolean isDone, Task task) {
         this.text = text;
         this.isDone = isDone;
         this.task = task;
