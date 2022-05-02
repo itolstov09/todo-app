@@ -1,0 +1,9 @@
+package dev.manool.TODOApp.repositories;
+
+import dev.manool.TODOApp.tasks.Task;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
+
+public interface TaskRepository extends CrudRepository<Task, Long> {
+}
