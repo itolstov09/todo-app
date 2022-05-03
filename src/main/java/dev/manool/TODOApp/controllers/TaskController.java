@@ -27,11 +27,30 @@ public class TaskController {
         return taskService.findTaskById(id);
     }
 
-    @PostMapping()
+    @PostMapping
     public Task saveTask(
 //            @RequestBody
             Task newTask) {
         return taskService.saveTask(newTask);
+    }
+
+    @PutMapping("/{id}")
+    public Task updateTask(
+            @PathVariable Long id,
+            Task updatedTask) {
+        // Перестраховка. Вдруг при передаче данных забудут указать id
+        updatedTask.setId(id);
+        return taskService.saveTask(updatedTask);
+    }
+
+    // TODO Возможно по феншую здесь использовать DTO
+    @PatchMapping("/{id}")
+    public Task patchTask(
+            @PathVariable Long id,
+            Task taskInfo) {
+        // Перестраховка. Вдруг при передаче данных забудут указать id
+        taskInfo.setId(id);
+        return taskService.updateTask(taskInfo);
     }
 
     @DeleteMapping("/{id}")
