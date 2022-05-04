@@ -22,7 +22,7 @@ public class SubtaskService {
         return subtaskRepository.findAll();
     }
 
-    public Subtask findTaskById(Long id) {
+    public Subtask findSubtaskById(Long id) {
         return subtaskRepository.findById(id)
                 .orElseThrow(() -> new SubtaskNotFoundException(id));
     }

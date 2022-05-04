@@ -17,7 +17,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Task> findAll() {
         return taskService.findAll();
     }
@@ -29,7 +29,7 @@ public class TaskController {
 
     @PostMapping
     public Task saveTask(
-//            @RequestBody
+            @RequestBody
             Task newTask) {
         return taskService.saveTask(newTask);
     }
@@ -37,6 +37,7 @@ public class TaskController {
     @PutMapping("/{id}")
     public Task updateTask(
             @PathVariable Long id,
+            @RequestBody
             Task updatedTask) {
         // Перестраховка. Вдруг при передаче данных забудут указать id
         updatedTask.setId(id);
@@ -47,6 +48,7 @@ public class TaskController {
     @PatchMapping("/{id}")
     public Task patchTask(
             @PathVariable Long id,
+            @RequestBody
             Task taskInfo) {
         // Перестраховка. Вдруг при передаче данных забудут указать id
         taskInfo.setId(id);

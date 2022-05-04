@@ -3,6 +3,7 @@ package dev.manool.TODOApp.controllers;
 import dev.manool.TODOApp.services.SubtaskService;
 import dev.manool.TODOApp.services.TaskService;
 import dev.manool.TODOApp.tasks.Subtask;
+import dev.manool.TODOApp.tasks.Task;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +25,51 @@ public class SubtaskController {
         return subtaskService.findSubtasksByTaskId(taskId);
     }
 
+    @GetMapping("tasks/{taskId}/subtasks/{subtaskId}")
+    public Subtask findSubtaskById(@PathVariable Long subtaskId) {
+        return subtaskService.findSubtaskById(subtaskId);
+    }
+
     @PostMapping("tasks/{taskId}/subtasks")
-    public Subtask saveSubtask(@PathVariable Long taskId, Subtask newSubtask) {
-        // FIXME Попахивает лютым костылём. Стоит починить или сделать по уму.
+    public Subtask saveSubtask(
+            @PathVariable Long taskId,
+            @RequestBody
+            Subtask newSubtask) {
+        // FIXME Действие ОК, реализация не очень.
+        //  Попахивает лютым костылём.
+        //  Стоит починить или сделать по уму. Например через Optional
         newSubtask.setTask(taskService.findTaskById(taskId));
         return subtaskService.save(newSubtask);
     }
 
-    @DeleteMapping("subtasks/{id}")
-    public ResponseEntity<Long> deleteSubtaskById(@PathVariable Long id) {
-        return ResponseEntity.ok(subtaskService.deleteById(id));
+    @PutMapping("tasks/{taskId}/subtasks/{subtaskId}")
+    public Subtask updateSubtask(
+            @PathVariable Long taskId,
+            @PathVariable Long subtaskId,
+            @RequestBody Subtask subtaskInfo) {
+        Task task = taskService.findTaskById(taskId);
+        subtaskInfo.setTask(task);
+        // Перестраховка. вдруг забыли указать id в теле запроса
+        subtaskInfo.setId(subtaskId);
+
+        return subtaskService.save(subtaskInfo);
+    }
+
+    @PatchMapping("tasks/{taskId}/subtasks/{subtaskId}")
+    public Subtask patchSubtask(
+            @PathVariable Long taskId,
+            @PathVariable Long subtaskId,
+            @RequestBody Subtask subtaskInfo) {
+        Task task = taskService.findTaskById(taskId);
+        subtaskInfo.setTask(task);
+       // Перестраховка. вдруг забыли указать id в теле запроса
+        subtaskInfo.setId(subtaskId);
+        return subtaskService.save(subtaskInfo);
+    }
+
+
+    @DeleteMapping("tasks/{taskId}/subtasks/{subtaskId}")
+    public ResponseEntity<Long> deleteSubtaskById(@PathVariable Long subtaskId) {
+        return ResponseEntity.ok(subtaskService.deleteById(subtaskId));
     }
 }

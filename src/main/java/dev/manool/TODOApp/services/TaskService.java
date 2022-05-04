@@ -47,7 +47,7 @@ public class TaskService {
 
     //TODO попахивает. Надо переделать
     public Long deleteById(Long id) {
-        if ( !taskRepository.existsById(id)) {
+        if (!taskRepository.existsById(id)) {
             logger.info(String.format("Cannot delete task with id %s: task not found!", id));
             throw new TaskNotFoundException(id);
         }
@@ -60,38 +60,48 @@ public class TaskService {
     }
 
     public Task updateTask(Task taskInfo) {
-        logger.debug(String.format("Update task from entity: %s", taskInfo));
         // запрашиваем задачу с тем же id
         // проходим по каджому полю taskInfo,
         // если есть значение то передаем в объект задачи
-        Task task = taskRepository.getById(taskInfo.getId());
+        long taskInfoId = taskInfo.getId();
+        Task task = taskRepository.findById(taskInfoId)
+                .orElseThrow(() -> new TaskNotFoundException(taskInfoId));
+
+        logger.debug(String.format("Update task from entity: %s", taskInfo));
+        boolean isNeedUpdate = false;
 
         String taskInfoText = taskInfo.getText();
         if (taskInfoText != null && !taskInfoText.isEmpty()) {
             task.setText(taskInfoText);
+            isNeedUpdate = true;
         }
-
         Task.Status taskInfoStatus = taskInfo.getStatus();
         if (taskInfoStatus != null) {
             task.setStatus(taskInfoStatus);
+            isNeedUpdate = true;
         }
-
         Task.Priority taskInfoPriority = taskInfo.getPriority();
         if (taskInfoPriority != null) {
             task.setPriority(taskInfoPriority);
+            isNeedUpdate = true;
         }
-
         LocalDate taskInfoDeadline = taskInfo.getDeadline();
         if (taskInfoDeadline != null) {
             task.setDeadline(taskInfoDeadline);
+            isNeedUpdate = true;
+        }
+//        // TODO Скорее всего здесь нужен patch для подзадач
+        // Бесполезная затея. Нужно делать patch запрос в subtaskservice
+//        Set<Subtask> taskInfoSubTasks = taskInfo.getSubTasks();
+//        if (taskInfoSubTasks != null) {
+//            task.setSubTasks(taskInfoSubTasks);
+//            isNeedUpdate = true;
+//        }
+        if (isNeedUpdate) {
+            logger.debug(String.format("Save updated task entity: %s", task));
+            taskRepository.save(task);
         }
 
-        Set<Subtask> taskInfoSubTasks = taskInfo.getSubTasks();
-        if (taskInfoSubTasks != null) {
-            task.setSubTasks(taskInfoSubTasks);
-        }
-
-        logger.debug(String.format("Save updated task entity: %s", task));
-        return taskRepository.save(task);
+        return task;
     }
 }
