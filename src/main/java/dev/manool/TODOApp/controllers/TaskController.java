@@ -52,7 +52,7 @@ public class TaskController {
             Task taskInfo) {
         // Перестраховка. Вдруг при передаче данных забудут указать id
         taskInfo.setId(id);
-        return taskService.updateTask(taskInfo);
+        return taskService.patchTask(taskInfo);
     }
 
     @DeleteMapping("/{id}")

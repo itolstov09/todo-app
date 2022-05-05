@@ -59,9 +59,9 @@ public class TaskService {
         return 1L;
     }
 
-    public Task updateTask(Task taskInfo) {
+    public Task patchTask(Task taskInfo) {
         // запрашиваем задачу с тем же id
-        // проходим по каджому полю taskInfo,
+        // проходим по каждому полю taskInfo,
         // если есть значение то передаем в объект задачи
         long taskInfoId = taskInfo.getId();
         Task task = taskRepository.findById(taskInfoId)
