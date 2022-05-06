@@ -25,6 +25,11 @@ public class SubtaskController {
         return subtaskService.findSubtasksByTaskId(taskId);
     }
 
+    @GetMapping("subtasks")
+    public List<Subtask> findAllSubtasks() {
+        return subtaskService.findAllSubtasks();
+    }
+
     @GetMapping("tasks/{taskId}/subtasks/{subtaskId}")
     public Subtask findSubtaskById(@PathVariable Long subtaskId) {
         return subtaskService.findSubtaskById(subtaskId);

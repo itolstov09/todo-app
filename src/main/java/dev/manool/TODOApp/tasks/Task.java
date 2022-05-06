@@ -21,15 +21,13 @@ public class Task {
     @Column(nullable = false)
     String text;
 
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'NOT_STARTED'")
     @NonNull
     @Enumerated(EnumType.STRING)
-    Status status;
+    Status status = Status.NOT_STARTED; //Указываем значение по умолчанию
 
     @NonNull
-    @Column(columnDefinition = "TEXT DEFAULT 'SOMEDAY'")
     @Enumerated(EnumType.STRING)
-    Priority priority;
+    Priority priority = Priority.SOMEDAY;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate deadline;
