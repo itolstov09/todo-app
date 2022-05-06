@@ -10,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.lang.reflect.Field;import java.util.Arrays;
+
 @Configuration
 public class DBLoader {
 
@@ -39,6 +41,14 @@ public class DBLoader {
             Iterable<Task> tasks = taskRepository.findAll();
             for (Task taskEl : tasks) {
                 logger.debug(taskEl.toString());
+            }
+
+            Field[] fields = Task.class.getDeclaredFields();
+            for (Field field: fields) {
+                logger.debug(String.format(
+                        "Task table field: %s",
+                        Arrays.toString(field.getAnnotations()))
+                );
             }
         };
     }

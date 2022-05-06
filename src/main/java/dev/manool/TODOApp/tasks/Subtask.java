@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "sub_tasks")
 public class Subtask {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @NonNull

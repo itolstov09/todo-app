@@ -14,15 +14,15 @@ import java.util.Set;
 @Table()
 public class Task {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @NonNull
     @Column(nullable = false)
     String text;
 
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'NOT_STARTED'")
     @NonNull
-    @Column(columnDefinition = "TEXT DEFAULT 'NOT_STARTED'")
     @Enumerated(EnumType.STRING)
     Status status;
 
