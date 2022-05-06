@@ -10,8 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-
 @Configuration
 public class DBLoader {
 
@@ -25,8 +23,7 @@ public class DBLoader {
             Task task = new Task(
                     "task_text",
                     Task.Status.NOT_STARTED,
-                    Task.Priority.NORMAL,
-                    LocalDate.now());
+                    Task.Priority.NORMAL);
 
             taskRepository.save(task);
 

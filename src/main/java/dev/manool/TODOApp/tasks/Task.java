@@ -1,31 +1,32 @@
 package dev.manool.TODOApp.tasks;
 
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-//TODO  Перевести на lobmok
-//@Data
-//@RequiredArgsConstructor
-//// TODO разобраться как работает
-//@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table()
 public class Task {
     @Id
     @GeneratedValue
-    // TODO разобраться и вернуть final
-    private long id;
+    long id;
 
+    @NonNull
     @Column(nullable = false)
-    private String text;
+    String text;
 
+    @NonNull
     @Column(columnDefinition = "TEXT DEFAULT 'NOT_STARTED'")
     @Enumerated(EnumType.STRING)
     Status status;
+
+    @NonNull
     @Column(columnDefinition = "TEXT DEFAULT 'SOMEDAY'")
     @Enumerated(EnumType.STRING)
     Priority priority;
@@ -38,14 +39,13 @@ public class Task {
             cascade = CascadeType.ALL)
     Set<Subtask> subtasks;
 
-    public Task() {
-    }
-
-    public Task(String text, Status status, Priority priority, LocalDate deadline) {
+    public Task(
+            @NonNull String text,
+            @NonNull Status status,
+            @NonNull Priority priority) {
         this.text = text;
         this.status = status;
         this.priority = priority;
-        this.deadline = deadline;
     }
 
     public enum Status {
@@ -56,63 +56,4 @@ public class Task {
         SOMEDAY, NORMAL, TODAY, ASAP
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
-    public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
-    }
-
-    public Set<Subtask> getSubTasks() {
-        return subtasks;
-    }
-
-    public void setSubTasks(Set<Subtask> subtasks) {
-        this.subtasks = subtasks;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", status=" + status +
-                ", priority=" + priority +
-                ", deadline=" + deadline +
-                ", subTasks=" + subtasks +
-                '}';
-    }
 }

@@ -1,10 +1,15 @@
 package dev.manool.TODOApp.tasks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 //TODO Перевести на lombok
+@Data
 @Entity
 @Table(name = "sub_tasks")
 public class Subtask {
@@ -12,20 +17,21 @@ public class Subtask {
     @GeneratedValue
     long id;
 
+    @NonNull
     @Column(nullable = false)
     String text;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     boolean isDone;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "task_id", nullable = false)
     @JsonIgnore
     Task task;
 
 
-    public Subtask() {
-    }
 
     public Subtask(String text, boolean isDone, Task task) {
         this.text = text;
@@ -33,46 +39,6 @@ public class Subtask {
         this.task = task;
     }
 
-    public long getId() {
-        return id;
+    public Subtask() {
     }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
-    @Override
-    public String toString() {
-        return "SubTask{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", isDone=" + isDone +
-                ", taskId=" + task.getId() +
-                '}';
-    }
-
 }
