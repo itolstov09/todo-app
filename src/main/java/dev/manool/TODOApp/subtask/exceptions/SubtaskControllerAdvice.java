@@ -1,6 +1,5 @@
-package dev.manool.TODOApp.controllers;
+package dev.manool.TODOApp.subtask.exceptions;
 
-import dev.manool.TODOApp.exceptions.TaskNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
-public class TaskControllerAdvice {
+public class SubtaskControllerAdvice {
 
     @ResponseBody()
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -21,8 +20,8 @@ public class TaskControllerAdvice {
 
     @ResponseBody()
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(TaskNotFoundException.class)
-    String taskNotFoundExceptionHandler(TaskNotFoundException exception) {
+    @ExceptionHandler(SubtaskNotFoundException.class)
+    String subtaskNotFoundExceptionHandler(SubtaskNotFoundException exception) {
         return exception.getMessage();
     }
 

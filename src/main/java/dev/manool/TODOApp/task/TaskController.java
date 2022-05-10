@@ -1,7 +1,5 @@
-package dev.manool.TODOApp.controllers;
+package dev.manool.TODOApp.task;
 
-import dev.manool.TODOApp.services.TaskService;
-import dev.manool.TODOApp.tasks.Task;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

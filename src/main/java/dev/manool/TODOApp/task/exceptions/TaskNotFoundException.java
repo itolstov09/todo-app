@@ -1,4 +1,4 @@
-package dev.manool.TODOApp.exceptions;
+package dev.manool.TODOApp.task.exceptions;
 
 public class TaskNotFoundException extends  RuntimeException{
 

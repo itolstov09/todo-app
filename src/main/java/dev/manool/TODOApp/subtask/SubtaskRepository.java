@@ -1,7 +1,7 @@
-package dev.manool.TODOApp.repositories;
+package dev.manool.TODOApp.subtask;
 
-import dev.manool.TODOApp.tasks.Subtask;
-import dev.manool.TODOApp.tasks.Task;
+import dev.manool.TODOApp.subtask.Subtask;
+import dev.manool.TODOApp.task.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

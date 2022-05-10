@@ -1,6 +1,7 @@
-package dev.manool.TODOApp.tasks;
+package dev.manool.TODOApp.subtask;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.manool.TODOApp.task.Task;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

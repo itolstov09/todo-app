@@ -1,4 +1,4 @@
-package dev.manool.TODOApp.exceptions;
+package dev.manool.TODOApp.subtask.exceptions;
 
 public class SubtaskNotFoundException extends RuntimeException{
     public SubtaskNotFoundException(Long id) {

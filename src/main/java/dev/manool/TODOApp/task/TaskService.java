@@ -1,19 +1,14 @@
-package dev.manool.TODOApp.services;
+package dev.manool.TODOApp.task;
 
-import dev.manool.TODOApp.DBLoader;
-import dev.manool.TODOApp.exceptions.TaskNotFoundException;
-import dev.manool.TODOApp.repositories.TaskRepository;
-import dev.manool.TODOApp.tasks.Subtask;
-import dev.manool.TODOApp.tasks.Task;
+import dev.manool.TODOApp.task.exceptions.TaskNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class TaskService {

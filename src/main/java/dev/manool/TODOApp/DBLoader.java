@@ -1,9 +1,9 @@
 package dev.manool.TODOApp;
 
-import dev.manool.TODOApp.repositories.SubtaskRepository;
-import dev.manool.TODOApp.repositories.TaskRepository;
-import dev.manool.TODOApp.tasks.Subtask;
-import dev.manool.TODOApp.tasks.Task;
+import dev.manool.TODOApp.subtask.SubtaskRepository;
+import dev.manool.TODOApp.task.TaskRepository;
+import dev.manool.TODOApp.subtask.Subtask;
+import dev.manool.TODOApp.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

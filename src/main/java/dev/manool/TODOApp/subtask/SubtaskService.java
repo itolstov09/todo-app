@@ -1,9 +1,8 @@
-package dev.manool.TODOApp.services;
+package dev.manool.TODOApp.subtask;
 
-import dev.manool.TODOApp.exceptions.SubtaskNotFoundException;
-import dev.manool.TODOApp.exceptions.TaskNotFoundException;
-import dev.manool.TODOApp.repositories.SubtaskRepository;
-import dev.manool.TODOApp.tasks.Subtask;
+import dev.manool.TODOApp.subtask.exceptions.SubtaskNotFoundException;
+import dev.manool.TODOApp.subtask.SubtaskRepository;
+import dev.manool.TODOApp.subtask.Subtask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
