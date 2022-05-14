@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/class-diagram
+hide method
+
+
+class Project {
+    id: Long
+    name: String
+    isDone: Boolean
+    tasks: Task
+}
+
+
+class Task {
+    id: Long
+    text: String
+    deadline: Date
+    updateDateTime: Timestamp
+    subtasks: Subtask
+    project: Project
+    status: Enum
+    priority: Enum
+}
+
+class Subtask {
+    id: Long
+    text: String
+    isDone: Boolean
+    task: Task
+}
+
+
+enum Status {
+    NOT_STARTED
+    IN_PROGRESS
+    JOBISDONE
+    ON_REVIEW
+    CANCELED
+}
+
+enum Priority {
+    ASAP
+    TODAY
+    NORMAL
+    SOMEDAY
+}
+
+
+'Связи
+'Project::id |o-down-|{ Task::project
+'Task::id ||-up-|{ Subtask::task
+''Subtask::task }|-left-|| Task::id
+'Task::status -left- Status
+'Task::priority -left- Priority
+'Priority -[hidden]up- Status
+'
+Project::id "0..1"-left- "1..*" Task::project
+Task::id "0..1" -left- "0..*" Subtask::task
+Task::status -down- Status
+Task::priority -down- Priority
+'Priority -[hidden]up- Status
+'Project -up- Subtask
+
+
+
+
+@enduml
