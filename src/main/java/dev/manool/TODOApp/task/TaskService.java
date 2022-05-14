@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,15 +21,10 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> findAllTasks() {
-        return taskRepository.findAll();
-    }
-
     public Task findTaskById(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
     }
-
 
     public List<Task> findAll() {
         return taskRepository.findAll();
@@ -94,7 +88,7 @@ public class TaskService {
 //        }
         if (isNeedUpdate) {
             logger.debug(String.format("Save updated task entity: %s", task));
-            taskRepository.save(task);
+            this.saveTask(task);
         }
 
         return task;

@@ -9,7 +9,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-//TODO Перевести на lombok
 @Data
 @Entity
 @Table(name = "sub_tasks")
@@ -22,7 +21,7 @@ public class Subtask {
     @Column(nullable = false)
     String text;
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT false")
+    @Column(name = "is_done", columnDefinition = "BOOLEAN DEFAULT false")
     boolean isDone;
 
     @EqualsAndHashCode.Exclude
@@ -34,7 +33,7 @@ public class Subtask {
 
 
 
-    public Subtask(String text, boolean isDone, Task task) {
+    public Subtask(@NonNull String text, boolean isDone, Task task) {
         this.text = text;
         this.isDone = isDone;
         this.task = task;

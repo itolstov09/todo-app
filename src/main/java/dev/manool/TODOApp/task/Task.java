@@ -1,23 +1,14 @@
 package dev.manool.TODOApp.task;
 
 import dev.manool.TODOApp.subtask.Subtask;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 
@@ -42,8 +33,14 @@ public class Task {
     @Enumerated(EnumType.STRING)
     Priority priority = Priority.SOMEDAY;
 
+    // FIXME @Future не даст поставить дедлайн на сегодня
+    @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate deadline;
+
+    @UpdateTimestamp
+    @Column(name = "update_date_time")
+    LocalDateTime updateDateTime;
 
     // сменил FetchType с LAZY на EAGER. Потому как выдавало ошибку. Да костыль. Поэтому тут этот коммент
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER,
