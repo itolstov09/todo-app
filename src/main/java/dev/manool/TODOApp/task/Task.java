@@ -1,5 +1,7 @@
 package dev.manool.TODOApp.task;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.manool.TODOApp.project.Project;
 import dev.manool.TODOApp.subtask.Subtask;
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -47,13 +49,24 @@ public class Task {
             cascade = CascadeType.ALL)
     Set<Subtask> subtasks;
 
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
+    Project project;
+
+
     public Task(
             @NonNull String text,
             @NonNull Status status,
-            @NonNull Priority priority) {
+            @NonNull Priority priority,
+            @NonNull Project project) {
         this.text = text;
         this.status = status;
         this.priority = priority;
+        this.project = project;
     }
 
     public enum Status {

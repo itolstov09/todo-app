@@ -1,5 +1,7 @@
 package dev.manool.TODOApp;
 
+import dev.manool.TODOApp.project.Project;
+import dev.manool.TODOApp.project.ProjectRepository;
 import dev.manool.TODOApp.subtask.SubtaskRepository;
 import dev.manool.TODOApp.task.TaskRepository;
 import dev.manool.TODOApp.subtask.Subtask;
@@ -19,13 +21,19 @@ public class DBLoader {
 
     // TODO Переделать в тесты
     @Bean
-    public CommandLineRunner fillDB(TaskRepository taskRepository,
-                                               SubtaskRepository subTaskRepository) {
+    public CommandLineRunner fillDB(
+            ProjectRepository projectRepository,
+            TaskRepository taskRepository,
+            SubtaskRepository subTaskRepository) {
         return args -> {
+            Project project = new Project("first project");
+            projectRepository.save(project);
+
             Task task = new Task(
                     "task_text",
                     Task.Status.NOT_STARTED,
-                    Task.Priority.NORMAL);
+                    Task.Priority.NORMAL,
+                    project);
 
             taskRepository.save(task);
 
@@ -38,18 +46,11 @@ public class DBLoader {
             subTaskRepository.save(
                     new Subtask("third subtask", true, task)
             );
-            Iterable<Task> tasks = taskRepository.findAll();
-            for (Task taskEl : tasks) {
-                logger.debug(taskEl.toString());
+            Iterable<Project> projects = projectRepository.findAll();
+            for (Project projectEl : projects) {
+                logger.debug(projectEl.toString());
             }
 
-            Field[] fields = Task.class.getDeclaredFields();
-            for (Field field: fields) {
-                logger.debug(String.format(
-                        "Task table field: %s",
-                        Arrays.toString(field.getAnnotations()))
-                );
-            }
         };
     }
 }
