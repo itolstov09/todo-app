@@ -18,11 +18,11 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    List<Project> findAll() {
+    public List<Project> findAll() {
         return projectRepository.findAll();
     }
 
-    Project findById(Long id) {
+    public Project findById(Long id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new ProjectNotFoundException(id));
     }

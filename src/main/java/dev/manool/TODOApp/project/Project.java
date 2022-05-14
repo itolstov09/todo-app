@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Data
@@ -17,7 +18,9 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+
     @NonNull
+    @NotBlank(message = "Project name is required!")
     @Column(nullable = false)
     String name;
 

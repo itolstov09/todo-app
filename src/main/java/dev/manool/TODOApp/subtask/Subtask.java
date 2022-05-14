@@ -8,6 +8,8 @@ import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -18,20 +20,19 @@ public class Subtask {
     long id;
 
     @NonNull
+    @NotBlank(message = "Subtask text is required!")
     @Column(nullable = false)
     String text;
 
     @Column(name = "is_done", columnDefinition = "BOOLEAN DEFAULT false")
     boolean isDone;
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    @NotNull(message = "Subtask task relation is required!")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "task_id", nullable = false)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonIgnore
     Task task;
-
-
 
     public Subtask(@NonNull String text, boolean isDone, Task task) {
         this.text = text;

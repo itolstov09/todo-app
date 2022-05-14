@@ -5,6 +5,7 @@ import dev.manool.TODOApp.task.Task;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -36,6 +37,7 @@ public class SubtaskController {
     @PostMapping("tasks/{taskId}/subtasks")
     public Subtask saveSubtask(
             @PathVariable Long taskId,
+            @Valid
             @RequestBody
             Subtask newSubtask) {
         // FIXME Действие ОК, реализация не очень.
@@ -49,6 +51,7 @@ public class SubtaskController {
     public Subtask updateSubtask(
             @PathVariable Long taskId,
             @PathVariable Long subtaskId,
+            @Valid
             @RequestBody Subtask subtaskInfo) {
         Task task = taskService.findTaskById(taskId);
         subtaskInfo.setTask(task);

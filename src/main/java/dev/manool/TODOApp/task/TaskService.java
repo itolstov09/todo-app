@@ -1,5 +1,6 @@
 package dev.manool.TODOApp.task;
 
+import dev.manool.TODOApp.project.ProjectService;
 import dev.manool.TODOApp.task.exceptions.TaskNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +15,13 @@ public class TaskService {
     private final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
     private final TaskRepository taskRepository;
+    private final ProjectService projectService;
 
 
     @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, ProjectService projectService) {
         this.taskRepository = taskRepository;
+        this.projectService = projectService;
     }
 
     public Task findTaskById(Long id) {
@@ -31,6 +34,11 @@ public class TaskService {
     }
 
     public Task saveTask(Task task) {
+        return taskRepository.save(task);
+    }
+
+    public Task saveTask(Task task, Long projectId) {
+        task.setProject(projectService.findById(projectId));
         return taskRepository.save(task);
     }
 
@@ -93,4 +101,5 @@ public class TaskService {
 
         return task;
     }
+
 }

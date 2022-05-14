@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -24,6 +26,7 @@ public class Task {
     long id;
 
     @NonNull
+    @NotBlank(message = "Task text is required!")
     @Column(nullable = false)
     String text;
 
@@ -35,8 +38,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     Priority priority = Priority.SOMEDAY;
 
-    // FIXME @Future не даст поставить дедлайн на сегодня
-    @Future
+    @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate deadline;
 

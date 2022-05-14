@@ -3,6 +3,7 @@ package dev.manool.TODOApp.project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,13 +27,17 @@ public class ProjectController {
     }
 
     @PostMapping
-    public Project saveProject(@RequestBody Project newProject) {
+    public Project saveProject(
+            @Valid
+            @RequestBody
+            Project newProject) {
         return projectService.saveProject(newProject);
     }
 
     @PutMapping("/{id}")
     public Project updateProject(
             @PathVariable Long id,
+            @Valid
             @RequestBody Project projectInfo
     ) {
         projectInfo.setId(id);
