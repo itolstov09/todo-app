@@ -1,6 +1,7 @@
 package dev.manool.TODOApp.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,5 +43,11 @@ public class ProjectController {
     ) {
         projectInfo.setId(id);
         return projectService.saveProject(projectInfo);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProjectById(@PathVariable Long id) {
+        projectService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

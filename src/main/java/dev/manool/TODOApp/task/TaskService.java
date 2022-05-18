@@ -42,18 +42,12 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    //TODO попахивает. Надо переделать
-    public Long deleteById(Long id) {
+    public void deleteById(Long id) {
         if (!taskRepository.existsById(id)) {
-            logger.info(String.format("Cannot delete task with id %s: task not found!", id));
             throw new TaskNotFoundException(id);
         }
-        // если нашли, то ошибки не происходит. Удаляем запись.
         taskRepository.deleteById(id);
         logger.info(String.format("Task with id %s was deleted", id));
-
-        // так как удаление по id, запись с таким id может быть только одна. Потому возвращаем единицу
-        return 1L;
     }
 
     public Task patchTask(Task taskInfo) {

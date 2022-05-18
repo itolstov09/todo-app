@@ -30,4 +30,10 @@ public class ProjectService {
     public Project saveProject(Project newProject) {
         return projectRepository.save(newProject);
     }
+
+    public void deleteById(Long id) {
+        projectRepository.findById(id)
+                .orElseThrow(() -> new ProjectNotFoundException(id));
+        projectRepository.deleteById(id);
+    }
 }

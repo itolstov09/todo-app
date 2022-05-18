@@ -34,14 +34,8 @@ public class SubtaskService {
         return subtaskRepository.save(newSubtask);
     }
 
-    //TODO попахивает. Надо переделать
-    public Long deleteById(Long id) {
-        // пытаемся найти запись с таким id
+    public void deleteById(Long id) {
         subtaskRepository.findById(id).orElseThrow(() -> new SubtaskNotFoundException(id));
-        // если нашли, то ошибки не происходит. Удаляем запись.
         subtaskRepository.deleteById(id);
-
-        // так как удаление по id, запись с таким id может быть только одна. Потому возвращаем единицу
-        return 1L;
     }
 }

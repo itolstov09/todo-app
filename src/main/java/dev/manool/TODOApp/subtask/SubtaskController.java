@@ -74,8 +74,9 @@ public class SubtaskController {
     }
 
 
-    @DeleteMapping("tasks/{taskId}/subtasks/{subtaskId}")
-    public ResponseEntity<Long> deleteSubtaskById(@PathVariable Long subtaskId) {
-        return ResponseEntity.ok(subtaskService.deleteById(subtaskId));
+    @DeleteMapping("/subtasks/{subtaskId}")
+    public ResponseEntity<?> deleteSubtaskById(@PathVariable Long subtaskId) {
+        subtaskService.deleteById(subtaskId);
+        return ResponseEntity.noContent().build();
     }
 }
