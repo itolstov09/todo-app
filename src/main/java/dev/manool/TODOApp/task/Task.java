@@ -71,6 +71,10 @@ public class Task {
         this.project = project;
     }
 
+    public Task(@NonNull String text) {
+        this.text = text;
+    }
+
     public enum Status {
         IN_PROGRESS, NOT_STARTED, JOBISDONE, ON_REVIEW, CANCELED
     }

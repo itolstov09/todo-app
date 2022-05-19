@@ -34,9 +34,14 @@ public class Subtask {
     @JsonIgnore
     Task task;
 
-    public Subtask(@NonNull String text, boolean isDone, Task task) {
+    public Subtask(@NonNull String text, boolean isDone, @NonNull Task task) {
         this.text = text;
         this.isDone = isDone;
+        this.task = task;
+    }
+
+    public Subtask(@NonNull String text, @NonNull Task task) {
+        this.text = text;
         this.task = task;
     }
 
