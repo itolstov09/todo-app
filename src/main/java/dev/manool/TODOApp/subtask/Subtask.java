@@ -28,7 +28,7 @@ public class Subtask {
     boolean isDone;
 
     @NotNull(message = "Subtask task relation is required!")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "task_id", nullable = false)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonIgnore
