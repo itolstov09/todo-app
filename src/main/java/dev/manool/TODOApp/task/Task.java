@@ -1,6 +1,7 @@
 package dev.manool.TODOApp.task;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import dev.manool.TODOApp.project.Project;
 import dev.manool.TODOApp.subtask.Subtask;
 import lombok.*;
@@ -8,11 +9,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -49,12 +50,12 @@ public class Task {
     // сменил FetchType с LAZY на EAGER. Потому как выдавало ошибку. Да костыль. Поэтому тут этот коммент
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    Set<Subtask> subtasks;
+    Set<Subtask> subtasks = new HashSet<>();
 
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id")
     Project project;
@@ -71,9 +72,11 @@ public class Task {
         this.project = project;
     }
 
+
     public Task(@NonNull String text) {
         this.text = text;
     }
+
 
     public enum Status {
         IN_PROGRESS, NOT_STARTED, JOBISDONE, ON_REVIEW, CANCELED

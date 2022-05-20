@@ -1,6 +1,7 @@
 package dev.manool.TODOApp.subtask;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import dev.manool.TODOApp.task.Task;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,7 +32,7 @@ public class Subtask {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "task_id", nullable = false)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     Task task;
 
     public Subtask(@NonNull String text, boolean isDone, @NonNull Task task) {

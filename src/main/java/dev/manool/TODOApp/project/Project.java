@@ -7,6 +7,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -31,7 +32,7 @@ public class Project {
 
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    Set<Task> tasks;
+    Set<Task> tasks = new HashSet<>();
 
     public Project(@NonNull String name) {
         this.name = name;
