@@ -1,7 +1,6 @@
 package dev.manool.TODOApp.task;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import dev.manool.TODOApp.project.Project;
 import dev.manool.TODOApp.subtask.Subtask;
 import lombok.*;
@@ -55,7 +54,9 @@ public class Task {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    // Для исправления рекурсивной сериализации
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIncludeProperties({"id"})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id")
     Project project;
