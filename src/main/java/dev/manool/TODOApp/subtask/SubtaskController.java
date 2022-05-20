@@ -2,6 +2,7 @@ package dev.manool.TODOApp.subtask;
 
 import dev.manool.TODOApp.task.TaskService;
 import dev.manool.TODOApp.task.Task;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,14 @@ public class SubtaskController {
         return subtaskService.findAllSubtasks();
     }
 
-    @GetMapping("tasks/{taskId}/subtasks/{subtaskId}")
+    @GetMapping("/subtasks/{subtaskId}")
     public Subtask findSubtaskById(@PathVariable Long subtaskId) {
         return subtaskService.findSubtaskById(subtaskId);
     }
 
-    @PostMapping("tasks/{taskId}/subtasks")
+
+    @PostMapping("/tasks/{taskId}/subtasks")
+    @ResponseStatus(HttpStatus.CREATED)
     public Subtask saveSubtask(
             @PathVariable Long taskId,
             @Valid
@@ -47,6 +50,7 @@ public class SubtaskController {
         return subtaskService.save(newSubtask);
     }
 
+    //TODO переделать с find на get
     @PutMapping("tasks/{taskId}/subtasks/{subtaskId}")
     public Subtask updateSubtask(
             @PathVariable Long taskId,
