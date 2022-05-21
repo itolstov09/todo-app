@@ -36,6 +36,7 @@ public class SubtaskController {
     }
 
 
+    //TODO Перенести логику в сервис
     @PostMapping("/tasks/{taskId}/subtasks")
     @ResponseStatus(HttpStatus.CREATED)
     public Subtask saveSubtask(
@@ -50,7 +51,7 @@ public class SubtaskController {
         return subtaskService.save(newSubtask);
     }
 
-    //TODO переделать с find на get
+    // TODO Перенести логику
     @PutMapping("tasks/{taskId}/subtasks/{subtaskId}")
     public Subtask updateSubtask(
             @PathVariable Long taskId,

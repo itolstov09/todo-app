@@ -50,6 +50,7 @@ public class TaskService {
         logger.info(String.format("Task with id %s was deleted", id));
     }
 
+    // TODO Возможно по феншую здесь использовать DTO
     public Task patchTask(Task taskInfo) {
         // запрашиваем задачу с тем же id
         // проходим по каждому полю taskInfo,
