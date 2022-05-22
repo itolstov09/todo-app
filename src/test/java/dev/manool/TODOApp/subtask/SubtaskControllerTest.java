@@ -95,7 +95,7 @@ class SubtaskControllerTest {
     @Test
     public void givenValidBody_whenPostSubtask_thenStatusCreated() throws Exception {
         Subtask validSubtask = new Subtask("Valid subtask", task);
-        when(subtaskService.save(any(Subtask.class))).thenReturn(validSubtask);
+        when(subtaskService.save(any(Subtask.class), Mockito.anyLong())).thenReturn(validSubtask);
 
         mockMvc.perform(
                         post("/tasks/1/subtasks/")
@@ -109,7 +109,7 @@ class SubtaskControllerTest {
     public void givenValidBody_whenPutSubtask_thenStatusOK() throws Exception {
         Subtask validSubtask = new Subtask("Valid subtask", task);
 
-        when(subtaskService.save(any(Subtask.class))).thenReturn(validSubtask);
+        when(subtaskService.save(any(Subtask.class), Mockito.anyLong(), Mockito.anyLong())).thenReturn(validSubtask);
 
         mockMvc.perform(
                         put("/tasks/1/subtasks/1")

@@ -12,12 +12,10 @@ import java.util.List;
 @RestController
 public class SubtaskController {
     private final SubtaskService subtaskService;
-    private final TaskService taskService;
 
 
-    public SubtaskController(SubtaskService subtaskService, TaskService taskService) {
+    public SubtaskController(SubtaskService subtaskService) {
         this.subtaskService = subtaskService;
-        this.taskService = taskService;
     }
 
     @GetMapping("tasks/{taskId}/subtasks")
@@ -36,7 +34,6 @@ public class SubtaskController {
     }
 
 
-    //TODO Перенести логику в сервис
     @PostMapping("/tasks/{taskId}/subtasks")
     @ResponseStatus(HttpStatus.CREATED)
     public Subtask saveSubtask(
@@ -44,38 +41,25 @@ public class SubtaskController {
             @Valid
             @RequestBody
             Subtask newSubtask) {
-        // FIXME Действие ОК, реализация не очень.
-        //  Попахивает лютым костылём.
-        //  Стоит починить или сделать по уму. Например через Optional
-        newSubtask.setTask(taskService.findTaskById(taskId));
-        return subtaskService.save(newSubtask);
+        return subtaskService.save(newSubtask, taskId);
     }
 
-    // TODO Перенести логику
     @PutMapping("tasks/{taskId}/subtasks/{subtaskId}")
     public Subtask updateSubtask(
             @PathVariable Long taskId,
             @PathVariable Long subtaskId,
             @Valid
             @RequestBody Subtask subtaskInfo) {
-        Task task = taskService.findTaskById(taskId);
-        subtaskInfo.setTask(task);
-        // Перестраховка. вдруг забыли указать id в теле запроса
-        subtaskInfo.setId(subtaskId);
-
-        return subtaskService.save(subtaskInfo);
+        return subtaskService.save(subtaskInfo, taskId, subtaskId);
     }
 
     @PatchMapping("tasks/{taskId}/subtasks/{subtaskId}")
     public Subtask patchSubtask(
             @PathVariable Long taskId,
             @PathVariable Long subtaskId,
+            @Valid
             @RequestBody Subtask subtaskInfo) {
-        Task task = taskService.findTaskById(taskId);
-        subtaskInfo.setTask(task);
-       // Перестраховка. вдруг забыли указать id в теле запроса
-        subtaskInfo.setId(subtaskId);
-        return subtaskService.save(subtaskInfo);
+        return subtaskService.save(subtaskInfo, taskId, subtaskId);
     }
 
 
