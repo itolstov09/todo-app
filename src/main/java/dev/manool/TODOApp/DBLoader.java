@@ -26,14 +26,16 @@ public class DBLoader {
             TaskRepository taskRepository,
             SubtaskRepository subTaskRepository) {
         return args -> {
-            Project project = new Project("first project");
-            projectRepository.save(project);
+            Project project1 = new Project("first project");
+            Project project2 = new Project("second project");
+            projectRepository.save(project1);
+            projectRepository.save(project2);
 
             Task task = new Task(
                     "task_text",
                     Task.Status.NOT_STARTED,
                     Task.Priority.NORMAL,
-                    project);
+                    project1);
 
             taskRepository.save(task);
 

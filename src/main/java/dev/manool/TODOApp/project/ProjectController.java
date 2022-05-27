@@ -2,12 +2,15 @@ package dev.manool.TODOApp.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+//@RestController
+@Controller
 @RequestMapping("/projects")
 public class ProjectController {
     private final ProjectService projectService;
@@ -18,8 +21,9 @@ public class ProjectController {
     }
 
     @GetMapping
-    public List<Project> findAll() {
-        return projectService.findAll();
+    public String findAll(Model model) {
+        model.addAttribute("projects", projectService.findAll());
+        return "projects";
     }
 
     @GetMapping("/{id}")
@@ -28,6 +32,7 @@ public class ProjectController {
     }
 
     @PostMapping
+    @ResponseBody
     public Project saveProject(
             @Valid
             @RequestBody
@@ -46,6 +51,8 @@ public class ProjectController {
     }
 
     @DeleteMapping("/{id}")
+    @GetMapping("/{id}/delete-project")
+    @ResponseBody()
     public ResponseEntity<?> deleteProjectById(@PathVariable Long id) {
         projectService.deleteById(id);
         return ResponseEntity.noContent().build();
